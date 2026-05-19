@@ -1,0 +1,5 @@
+# Arquivos de skill do Cowork (não precisam ir pro GitHub)
+*.skill
+CLAUDE.md
+sync-transcripts-eval.html
+prompt-gerar-planner.md
