@@ -1402,20 +1402,23 @@ var NTICO={decision:'🔵',note:'📝',learning:'💡',risk:'⚠️'};
 var NTCOL={decision:'#7c3aed',note:'#06b6d4',learning:'#f59e0b',risk:'#ef4444'};
 
 function nav(id,el){
+  // Redirect removed sections before touching DOM
+  if(id==='slack'){id='overview';}
+  var sec=document.getElementById('sec-'+id);
+  if(!sec){id='overview';sec=document.getElementById('sec-overview');}
   document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
-  document.getElementById('sec-'+id).classList.add('active');
+  sec.classList.add('active');
   document.querySelectorAll('.sidebar-icon').forEach(function(a){a.classList.remove('active');});
   if(el)el.classList.add('active');
   cur=id;
   try{localStorage.setItem('esther-nav',id);}catch(e){}
-  var tt={overview:'My tasks',projects:'My teams',meetings:'Alinhamentos',notes:'Notas & Decisões',week:'Week',semester:'Roadmap',calendar:'Meetings',slack:'Slack'};
+  var tt={overview:'My tasks',projects:'My teams',meetings:'Alinhamentos',notes:'Notas & Decisões',week:'Week',semester:'Roadmap',calendar:'Meetings'};
   document.getElementById('page-title').textContent=tt[id]||id;
   var dateEl=document.getElementById('page-date');
   if(dateEl){ var d=new Date(); var dias=['domingo','segunda','terça','quarta','quinta','sexta','sábado']; var meses=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez']; dateEl.textContent=dias[d.getDay()]+', '+d.getDate()+' de '+meses[d.getMonth()]; }
   if(id==='week'){renderWeek();return;}
   if(id==='semester'){renderSemester();return;}
   if(id==='calendar'){renderCalendar();return;}
-  if(id==='slack'){id='overview';} // slack section removed, redirect to overview
   render();
 }
 
